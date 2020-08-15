@@ -7,10 +7,9 @@ Ce programme [Node.js](https://nodejs.dev/) permet à une machine située sur un
 
 1. Renseignez votre nom de domaine, login et mot de passe dans le fichier [credentials.json](/credentials.json).
 
-- Unix (Mac / Linux)
-  2. Lancez [le script d'installation](/installOnRaspberry_ARMv7.sh) avec `bash ./installOnRaspberry_ARMv7.sh`
-- Posix (Windows)
-  2. Installez [node / npm](https://www.npmjs.com/get-npm) et [yarn](https://yarnpkg.com/getting-started/install) 
+2. Installation
+   - Unix (Mac / Linux) : Lancez [le script d'installation](/installOnRaspberry_ARMv7.sh) avec `bash ./installOnRaspberry_ARMv7.sh`
+   - Posix (Windows) : Installez [node / npm](https://www.npmjs.com/get-npm) et [yarn](https://yarnpkg.com/getting-started/install) 
 
 3. Compilez avec `yarn` ou `npm install`
 

@@ -1,0 +1,17 @@
+{
+  "name": "CRON-DomaineIPDynamique--Infomaniak",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "ip-monitor": "^1.1.1"
+  }
+}

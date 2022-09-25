@@ -16,33 +16,37 @@ ipMonitor.on('change',
         let dateString = daysOfWeek[date.getDay()] + " " + date.getDate() + " " + months[date.getMonth()] + " " + date.getFullYear();
         let hourString = date.getHours() + "h" + date.getMinutes();
         let dateHourString = dateString + ' à ' + hourString;
-        axios.post(`https://${credentials.login}:${credentials.password}@infomaniak.com/nic/update`, {
-            hostname: credentials.hostname,
-        }).then(
-            (res) => {
-                if (!res.data.includes("nochg")) {
-                    fs.appendFile(
-                        logsFilePath,
-                        'Changement d\'IP le ' + dateHourString + ' - Nouvelle IP : ' + newIP + "\r\n",
-                        err => {
-                            if (err) console.log("ERROR : %o", err);
+        credentials.hostnames.forEach(
+            (hostname) => {
+                axios.post(`https://${credentials.login}:${credentials.password}@infomaniak.com/nic/update`, {
+                    hostname: hostname,
+                }).then(
+                    (res) => {
+                        if (!res.data.includes("nochg")) {
+                            fs.appendFile(
+                                logsFilePath,
+                                'Changement d\'IP le ' + dateHourString + ' - Nouvelle IP : ' + newIP + "\r\n",
+                                err => {
+                                    if (err) console.log("ERROR : %o", err);
+                                }
+                            );
+                        } else {
+                            fs.appendFile(
+                                logsFilePath,
+                                "Appel réussi sans changement d'IP le " + dateHourString + " - IP : " + newIp + "\r\n",
+                                err => {
+                                    if (err) console.log("ERROR : %o", err);
+                                }
+                            );
                         }
-                    );
-                } else {
-                    fs.appendFile(
-                        logsFilePath,
-                        "Appel réussi sans changement d'IP le " + dateHourString + " - IP : " + newIp + "\r\n",
-                        err => {
-                            if (err) console.log("ERROR : %o", err);
-                        }
-                    );
-                }
+                    }
+                ).catch(
+                    (error) => {
+                        console.log('ERREUR CRON le ' + dateString + " à " + hourString + ' : ' + error.response.data);
+                    }
+                );
             }
-        ).catch(
-            (error) => {
-                console.log('ERREUR CRON le ' + dateString + " à " + hourString + ' : ' + error);
-            }
-        );
+        )
     }
 );
 
